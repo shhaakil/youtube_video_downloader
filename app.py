@@ -190,24 +190,38 @@ if 'error_message' not in st.session_state:
 
 # Create sidebar for settings
 with st.sidebar:
-    st.header("Settings")
-    
-    # Output directory
-    st.subheader("Output Directory")
-    output_dir = st.text_input("Download directory", value="./downloads")
-    
-    # Help section
-    st.subheader("Help")
+    # Main Settings Header
+    st.markdown("<div style='font-size:24px; font-weight:bold;'>⚙ Settings</div>", unsafe_allow_html=True)
+
+    # Output Directory Section
+    st.markdown("<div style='font-size:22px; margin-top:20px;'>📁 Output Directory</div>", unsafe_allow_html=True)
+    output_dir = st.text_input("Enter download folder path:", value="./downloads")
+
+    st.markdown("<hr>", unsafe_allow_html=True)
+
+    # Help Section Header
+    st.markdown("<div style='font-size:22px;'>❓ Help</div>", unsafe_allow_html=True)
+
+    # Highlighted ytdlp Info
     st.markdown("""
-    **Note:** This app uses the updated yt-dlp which handles YouTube's bot detection better.
-    If you encounter any issues, make sure you have the latest version of yt-dlp installed.
-    also you need to have ffmpeg install on you system when run localy.
-    
-    To update yt-dlp:
-    ```
-    pip install --upgrade yt-dlp
-    ```
-    """)
+    <div style='
+        background-color:#f0f8ff;
+        padding:15px;
+        border-radius:8px;
+        font-size:20px;
+        margin-top:10px;
+        border-left: 5px solid #3399ff;
+    '>
+        This app uses <strong>yt-dlp</strong>, which is more reliable for downloading from YouTube.
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Update Command
+    st.markdown("<div style='font-size:20px; margin-top:15px;'><strong>To update yt-dlp:</strong></div>", unsafe_allow_html=True)
+
+    st.code("pip install --upgrade yt-dlp", language="bash")
+
+
 
 # Main content area
 with st.container():
@@ -347,27 +361,32 @@ with st.container():
     
     # Display download result
     if st.session_state.download_success:
-        st.success("Download completed successfully!")
-        st.markdown(f"""
-        <div class="success-message">
-            Video saved to: {st.session_state.download_path}
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown(
+            f"""
+            <div style='color: green; background-color: #d4edda; padding: 12px; border-radius: 6px;
+                        font-size: 20px; font-weight: bold; margin-bottom: 10px;'>
+                ✅ Download completed successfully!<br>
+                Video saved to: {st.session_state.download_path}
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+
         
-        # Provide download button
-        if os.path.exists(st.session_state.download_path):
-            with open(st.session_state.download_path, 'rb') as f:
-                st.download_button(
-                    label="Download Video File",
-                    data=f,
-                    file_name=os.path.basename(st.session_state.download_path),
-                    mime="video/mp4"
-                )
+        # # Provide download button
+        # if os.path.exists(st.session_state.download_path):
+        #     with open(st.session_state.download_path, 'rb') as f:
+        #         st.download_button(
+        #             label="Download Video File",
+        #             data=f,
+        #             file_name=os.path.basename(st.session_state.download_path),
+        #             mime="video/mp4"
+        #         )
     
     if st.session_state.error_message:
         st.markdown(f"""
         <div class="error-message">
             Error: {st.session_state.error_message}
         </div>
-
         """, unsafe_allow_html=True)
