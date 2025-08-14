@@ -5,10 +5,9 @@ import time
 import re
 from pathlib import Path
 
-# Set page configuration
 st.set_page_config(
     page_title="YouTube Video Downloader",
-    page_icon="📺",
+    page_icon="▶️",
     layout="centered",
     initial_sidebar_state="expanded"
 )
@@ -390,3 +389,4 @@ with st.container():
             Error: {st.session_state.error_message}
         </div>
         """, unsafe_allow_html=True)
+
