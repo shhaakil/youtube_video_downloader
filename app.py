@@ -201,6 +201,7 @@ with st.sidebar:
     st.markdown("""
     **Note:** This app uses the updated yt-dlp which handles YouTube's bot detection better.
     If you encounter any issues, make sure you have the latest version of yt-dlp installed.
+    also you need to have ffmpeg install on you system when run localy.
     
     To update yt-dlp:
     ```
@@ -368,4 +369,5 @@ with st.container():
         <div class="error-message">
             Error: {st.session_state.error_message}
         </div>
+
         """, unsafe_allow_html=True)
